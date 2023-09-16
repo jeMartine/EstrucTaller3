@@ -14,8 +14,8 @@ public:
     bool esVacio();
     int altura();
     int tamahno();
-    bool insertar(T& val);
-    bool eliminar(T& val);
+    bool insert(T& val);
+    bool erase(T& val);
     void preOrden();
     void inOrden();
     void posOrden();

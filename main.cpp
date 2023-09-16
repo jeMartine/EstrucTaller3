@@ -6,14 +6,14 @@
 #include <list>
 #include <set>
 // TODO #1: incluir cabeceras implementaciones propias
-// #include "---> implementacion_ArbolBinarioOrd.h <---"
+#include "ArbolBinarioOrd.h"
 // #include "---> implementacion_ArbolAVL.h <---"
 
 // -------------------------------------------------------------------------
 typedef std::list< std::string > TList;
 typedef std::set< std::string >  TSet;
 // TODO #2: definir tipos de datos para arboles de cadenas de caracteres
-// typedef implementacion_ArbolBinarioOrd< std::string > TArbolBO;
+ typedef ArbolBinarioOrd<std::string> TArbolBO;
 // typedef implementacion_ArbolAVL< std::string > TArbolAVL;
 
 // -------------------------------------------------------------------------
@@ -29,18 +29,20 @@ int main( int argc, char* argv[] ) {
   }
 
   // TODO #3: declarar arboles
-  // TArbolBO arbolBO;
+  TArbolBO arbolBO;
   // TArbolAVL arbolAVL;
   TSet arbolRN;
 
   // Llenar arbol binario ordenado y obtener tiempo de ejecucion
   std::clock_t start_arbolBO = std::clock( );
   // TODO #4: llenar arbol desde archivo con funcion ReadTree
-  // bool llenar_arbolBO = ReadTree( arbolBO, argv[ 1 ] );
+  
+
+  bool llenar_arbolBO = ReadTree( arbolBO, argv[ 1 ] );
   std::clock_t end_arbolBO = std::clock( );
-  double tiempo_arbolBO =
-    ( end_arbolBO - start_arbolBO ) / double( CLOCKS_PER_SEC );
-  /* TODO #5: si se pudo llenar el arbol, imprimir el tiempo
+
+  double tiempo_arbolBO = ( end_arbolBO - start_arbolBO ) / double( CLOCKS_PER_SEC );
+  // TODO #5: si se pudo llenar el arbol, imprimir el tiempo
      if( llenar_arbolBO )
        std::cout
          << "Tiempo de llenado Arbol Binario Ordenado = "
@@ -51,7 +53,7 @@ int main( int argc, char* argv[] ) {
          << "Error al usar \"" << argv[ 1 ]
          << "\" para llenar el arbol binario ordenado."
          << std::endl;
-  */
+  
 
   // Llenar arbol AVL y obtener tiempo de ejecucion
   std::clock_t start_arbolAVL = std::clock( );
@@ -141,7 +143,6 @@ bool ReadTree( TTree& tree, const std::string& filename ) {
       tree.insert( value );  // El arbol debe proveer el metodo "insert"
     else if( code == "del" )
       tree.erase( value );  // El arbol debe proveer el metodo "erase"
-
   }
 
   input.close( );

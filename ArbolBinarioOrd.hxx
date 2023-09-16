@@ -20,7 +20,7 @@ bool ArbolBinarioOrd<T>::esVacio(){
 
 
 template <class T>
-bool ArbolBinarioOrd<T>::insertar(T& val){
+bool ArbolBinarioOrd<T>::insert(T& val){
     raiz= insertRec(raiz, val);
 }
 
@@ -32,12 +32,12 @@ NodoBin<T>* ArbolBinarioOrd<T>::insertRec(NodoBin<T>* nodo, T valor){
 
     if (valor < nodo->obtenerDato()) {
         if(nodo->obtenerHijoIzq()==nullptr)
-            std::cout<<"Padre: "<<nodo->obtenerDato()<<" agregado izquierdo: "<<valor<<"\n";
+         //   std::cout<<"Padre: "<<nodo->obtenerDato()<<" agregado izquierdo: "<<valor<<"\n";
 
         nodo->fijarHijoIzq(insertRec(nodo->obtenerHijoIzq(), valor));
     } else if (valor > nodo->obtenerDato()) {
         if(nodo->obtenerHijoDer()==nullptr)
-            std::cout<<"Padre: "<<nodo->obtenerDato()<<" agregado derecho: "<<valor<<"\n";
+          //  std::cout<<"Padre: "<<nodo->obtenerDato()<<" agregado derecho: "<<valor<<"\n";
 
 
         nodo->fijarHijoDer(insertRec(nodo->obtenerHijoDer(), valor));
@@ -59,7 +59,7 @@ int ArbolBinarioOrd<T>::tamahno(){
 
 
 template <class T>
-bool ArbolBinarioOrd<T>::eliminar(T& val){
+bool ArbolBinarioOrd<T>::erase(T& val){
 
 }
 
