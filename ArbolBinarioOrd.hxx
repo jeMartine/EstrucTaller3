@@ -103,7 +103,7 @@ int ArbolBinarioOrd<T>::tamahno()
 template <class T>
 bool ArbolBinarioOrd<T>::erase(T &val)
 {
-    if (raiz = NULL)
+    if (raiz == NULL)
     {
         return false;
     }
@@ -111,33 +111,33 @@ bool ArbolBinarioOrd<T>::erase(T &val)
 }
 
 template <class T>
-int ArbolBinarioOrd<T>::successor(NodoBin<T> *nodo)
+NodoBin<T> ArbolBinarioOrd<T>::successor(NodoBin<T> *nodo)
 {
-    raiz = raiz->hijoDer;
-    while (root->hijoizq != NULL)
+    raiz = raiz->obtenerHijoDer();
+    while (raiz->obtenerHijoIzq() != NULL)
     {
-        raiz = raiz->hijoIzq;
+        raiz = raiz->obtenerHijoIzq();
     }
-    return raiz->dato;
+    return raiz->obtenerDato();
 }
 
 template <class T>
-int ArbolBinarioOrd<T>::predecessor(NodoBin<T> *nodo)
+NodoBin<T> ArbolBinarioOrd<T>::predecessor(NodoBin<T> *nodo)
 {
-    raiz = raiz->hijoIzq;
-    while (root->hijoDer != NULL)
+    raiz = raiz->obtenerHijoIzq();
+    while (raiz->obtenerHijoDer() != NULL)
     {
-        raiz = raiz->hijoDer;
+        raiz = raiz->obtenerHijoDer();
     }
-    return raiz->dato;
+    return raiz->obtenerDato();
 }
 
 template <class T>
 NodoBin<T> *ArbolBinarioOrd<T>::eraseNode(T &val, NodoBin<T> *nodo)
 {
-    if (raiz = NULL)
+    if (raiz == NULL)
     {
-        return false;
+        return NULL;
     }
     if (val > nodo->obtenerDato())
     {
@@ -149,19 +149,19 @@ NodoBin<T> *ArbolBinarioOrd<T>::eraseNode(T &val, NodoBin<T> *nodo)
     }
     else
     {
-        if (raiz->hijoIzq == NULL && raiz->hijoDer == NULL)
+        if (raiz->obtenerHijoIzq() == NULL && raiz->obtenerHijoDer() == NULL)
         {
             raiz = NULL;
         }
-        else if (raiz->hijoDer != NULL)
+        else if (raiz->obtenerHijoDer() != NULL)
         {
-            raiz->dato = successor(raiz);
-            raiz->hijoDer = eraseNode(raiz->dato, raiz->hijoDer);
+            raiz->fijarDato(successor(raiz));
+            raiz->fijarHijoDer(eraseNode(raiz->obtenerDato(), raiz->obtenerHijoDer()));
         }
-        else if (raiz->hijoIzq != NULL)
+        else if (raiz->obtenerHijoIzq() != NULL)
         {
-            raiz->dato = predecessor(raiz);
-            raiz->hijoIzq = eraseNode(raiz->dato, raiz->hijoIzq);
+            raiz->fijarDato(predecessor(raiz));
+            raiz->fijarHijoIzq(eraseNode(raiz->obtenerDato(), raiz->obtenerHijoIzq()));
         }
     }
     return raiz;
