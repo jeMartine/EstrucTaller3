@@ -1,25 +1,27 @@
-#ifndef NODOBIN_H 
+#ifndef NODOBIN_H
 #define NODOBIN_H
 
 template <class T>
 
-class NodoBin {
-    private:
+class NodoBin
+{
+private:
     T dato;
-    NodoBin <T> * hijoIzq;
-    NodoBin <T> * hijoDer;
+    NodoBin<T> *hijoIzq;
+    NodoBin<T> *hijoDer;
 
-    public:
-    NodoBin (T& valor);
-    NodoBin ();
+public:
+    NodoBin(T &valor);
+    NodoBin();
 
-    T& obtenerDato ();
-    void fijarDato(T& valor);
-    NodoBin <T>* obtenerHijoIzq();
-    NodoBin <T>* obtenerHijoDer();
-    void fijarHijoIzq(NodoBin <T> *izq);
-    void fijarHijoDer(NodoBin <T> *der);
+    T &obtenerDato();
+    void fijarDato(T &valor);
+    NodoBin<T> *obtenerHijoIzq();
+    NodoBin<T> *obtenerHijoDer();
+    void fijarHijoIzq(NodoBin<T> *izq);
+    void fijarHijoDer(NodoBin<T> *der);
     bool esHoja();
+    void inOrden();
 };
 
 #include "NodoBin.hxx"
