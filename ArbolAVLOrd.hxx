@@ -159,11 +159,12 @@ bool ArbolAVLOrd<T>::erase(T &val)
     {
         return false;
     }
-    return eraseNode(val, raiz);
+    eraseNode(val, raiz);
+    return true;
 }
 
 template <class T>
-NodoBin<T> *nodeMinVal(NodoBin<T> *nodo)
+NodoBin<T> ArbolAVLOrd<T>::nodeMinVal(NodoBin<T> *nodo)
 {
     NodoBin<T> *current = nodo;
     while (current->obtenerHijoIzq() != NULL)

@@ -21,6 +21,7 @@ public:
     bool insert(T &val);
     bool erase(T &val);
     NodoBin<T> *eraseNode(T &val, NodoBin<T> *nodo);
+    NodoBin<T> nodeMinVal(NodoBin<T> *nodo);
     void preOrden();
     void inOrden();
     void posOrden();

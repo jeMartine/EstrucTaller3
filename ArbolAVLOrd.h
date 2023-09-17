@@ -33,6 +33,7 @@ public:
     NodoBin<T> rotacionDer(NodoBin<T> *nodo);
     int getBalanceFactor(NodoBin<T> *nodo);
     NodoBin<T> *eraseNode(T &val, NodoBin<T> *nodo);
+    NodoBin<T> nodeMinVal(NodoBin<T> *nodo);
     void preOrden();
     void inOrden();
     void posOrden();
