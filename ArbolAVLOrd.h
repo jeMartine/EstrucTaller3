@@ -10,6 +10,15 @@ class ArbolAVLOrd
 private:
     NodoBin<T> *raiz;
 
+struct NodoAVL {
+        T valor;
+        NodoAVL* izquierdo;
+        NodoAVL* derecho;
+
+        NodoAVL( T& val) : valor(val), izquierdo(nullptr), derecho(nullptr) {}
+    };
+
+
 public:
     ArbolAVLOrd();
     ~ArbolAVLOrd();
@@ -30,6 +39,8 @@ public:
     void posOrden();
     void nivelOrden();
     NodoBin<T> *insertRec(NodoBin<T> *nodo, T valor);
+    void inOrdenLista(std::list<T>& lista);
+
 };
 
 #include "ArbolAVLOrd.hxx"
