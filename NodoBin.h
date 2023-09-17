@@ -19,6 +19,7 @@ class NodoBin {
     NodoBin <T>* obtenerHijoDer();
     void fijarHijoIzq(NodoBin <T> *izq);
     void fijarHijoDer(NodoBin <T> *der);
+    bool esHoja();
 };
 
 #include "NodoBin.hxx"

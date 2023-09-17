@@ -11,8 +11,10 @@ private:
 public:
     ArbolBinarioOrd();
     ~ArbolBinarioOrd();
+    T datoRaiz();
     bool esVacio();
     int altura();
+    int altura(NodoBin <T> * nodo);
     int tamahno();
     bool insert(T& val);
     bool erase(T& val);

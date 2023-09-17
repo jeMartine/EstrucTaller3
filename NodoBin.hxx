@@ -44,3 +44,11 @@ void NodoBin<T>::fijarHijoDer(NodoBin <T> *der){
     hijoDer = der;
 }
 
+    
+template <class T>
+bool NodoBin<T>:: esHoja(){
+    if(hijoIzq == NULL && hijoDer == NULL)
+        return true;
+    else 
+        return false;
+}

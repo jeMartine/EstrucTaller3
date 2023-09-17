@@ -41,6 +41,7 @@ int main( int argc, char* argv[] ) {
   bool llenar_arbolBO = ReadTree( arbolBO, argv[ 1 ] );
   std::clock_t end_arbolBO = std::clock( );
 
+  std::cout<<"Altura "<<arbolBO.altura()<<"\n";
   double tiempo_arbolBO = ( end_arbolBO - start_arbolBO ) / double( CLOCKS_PER_SEC );
   // TODO #5: si se pudo llenar el arbol, imprimir el tiempo
      if( llenar_arbolBO )
