@@ -60,16 +60,3 @@ bool NodoBin<T>::esHoja()
         return false;
 }
 
-template <class T>
-void NodoBin<T>::inOrden()
-{
-    if (this->hijoIzq != NULL)
-    {
-        (this->hijoIzq)->inOrden();
-        std::cout << this->dato << std::endl;
-    }
-    if (this->hijoDer != NULL)
-    {
-        (this->hijoDer)->inOrden();
-    }
-}
