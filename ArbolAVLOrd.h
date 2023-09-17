@@ -20,9 +20,10 @@ public:
     int tamahno();
     bool insert(T &val); // modificar para que sea AVL
     bool erase(T &val);  // modificar para que sea AVL
-    void rotacionIzq(NodoBin<T> *nodo);
-    void rotacionDer(NodoBin<T> *nodo);
+    NodoBin<T> rotacionIzq(NodoBin<T> *nodo);
+    NodoBin<T> rotacionDer(NodoBin<T> *nodo);
     int getBalanceFactor(NodoBin<T> *nodo);
+    NodoBin<T> *ArbolAVLOrd<T>::*nodeMinVal(NodoBin<T> *nodo);
     NodoBin<T> *eraseNode(T &val, NodoBin<T> *nodo);
     void preOrden();
     void inOrden();

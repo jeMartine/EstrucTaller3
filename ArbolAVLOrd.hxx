@@ -66,7 +66,7 @@ NodoBin<T> *ArbolAVLOrd<T>::insertRec(NodoBin<T> *nodo, T valor)
         }
         else
         {
-            node->fijarHijoIzq(rotacionIzq(nodo->obtenerHijoIzq()));
+            nodo->fijarHijoIzq(rotacionIzq(nodo->obtenerHijoIzq()));
             return rotacionDer(nodo);
         }
     }
@@ -133,17 +133,17 @@ int ArbolAVLOrd<T>::tamahno()
 }
 
 template <class T>
-void ArbolAVLOrd<T>::rotacionIzq(NodoBin<T> *nodo)
+NodoBin<T> ArbolAVLOrd<T>::rotacionIzq(NodoBin<T> *nodo)
 {
     NodoBin<T> *temp = nodo->obtenerHijoDer();
     NodoBin<T> *temp2 = temp->obtenerHijoIzq();
-    temp.fijarHijoIzq(nodo);
+    temp->fijarHijoIzq(nodo);
     nodo->fijarHijoDer(temp2);
     return temp;
 }
 
 template <class T>
-void ArbolAVLOrd<T>::rotacionDer(NodoBin<T> *nodo)
+NodoBin<T> ArbolAVLOrd<T>::rotacionDer(NodoBin<T> *nodo)
 {
     NodoBin<T> *temp = nodo->obtenerHijoIzq();
     NodoBin<T> *temp2 = temp->obtenerHijoDer();
@@ -155,7 +155,7 @@ void ArbolAVLOrd<T>::rotacionDer(NodoBin<T> *nodo)
 template <class T>
 bool ArbolAVLOrd<T>::erase(T &val)
 {
-    if (raiz = NULL)
+    if (raiz == NULL)
     {
         return false;
     }
@@ -163,7 +163,7 @@ bool ArbolAVLOrd<T>::erase(T &val)
 }
 
 template <class T>
-NodoBin<T> *nodeMinVal(NodoBin<T> *nodo)
+NodoBin<T> *ArbolAVLOrd<T>::*nodeMinVal(NodoBin<T> *nodo)
 {
     NodoBin<T> *current = nodo;
     while (current->obtenerHijoIzq() != NULL)
@@ -218,7 +218,7 @@ NodoBin<T> *ArbolAVLOrd<T>::eraseNode(T &val, NodoBin<T> *nodo)
     int balance = getBalanceFactor(raiz);
     if (balance > 1)
     {
-        if (getBalanceFactor(raiz->obtenerHijoIzq() >= 0))
+        if (getBalanceFactor(raiz->obtenerHijoIzq()) >= 0)
         {
             return rotacionDer(raiz);
         }
@@ -230,7 +230,7 @@ NodoBin<T> *ArbolAVLOrd<T>::eraseNode(T &val, NodoBin<T> *nodo)
     }
     if (balance < -1)
     {
-        if (getBalanceFactor(raiz->obtenerHijoDer() <= 0))
+        if (getBalanceFactor(raiz->obtenerHijoDer()) <= 0)
         {
             return rotacionIzq(raiz);
         }
