@@ -100,7 +100,8 @@ int main(int argc, char *argv[])
   // Obtener recorrido en inorden del arbol AVL
   TList inorden_arbolAVL;
   // TODO #9: usar funcion del arbol AVL para obtener recorrido en lista
-  // arbolAVL.inOrdenLista( inorden_arbolAVL );
+
+  arbolAVL.inOrdenLista(inorden_arbolAVL);
 
   if (inorden_arbolBO.size() != inorden_arbolAVL.size() ||
       inorden_arbolBO.size() != arbolRN.size() ||
