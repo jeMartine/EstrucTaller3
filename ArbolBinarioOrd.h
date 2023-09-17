@@ -20,8 +20,6 @@ public:
     int tamahno();
     bool insert(T &val);
     bool erase(T &val);
-    NodoBin<T> successor(NodoBin<T> *nodo);
-    NodoBin<T> predecessor(NodoBin<T> *nodo);
     NodoBin<T> *eraseNode(T &val, NodoBin<T> *nodo);
     void preOrden();
     void inOrden();

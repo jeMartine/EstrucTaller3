@@ -111,25 +111,14 @@ bool ArbolBinarioOrd<T>::erase(T &val)
 }
 
 template <class T>
-NodoBin<T> ArbolBinarioOrd<T>::successor(NodoBin<T> *nodo)
+NodoBin<T> *nodeMinVal(NodoBin<T> *nodo)
 {
-    raiz = raiz->obtenerHijoDer();
-    while (raiz->obtenerHijoIzq() != NULL)
+    NodoBin<T> *current = nodo;
+    while (current->obtenerHijoIzq() != NULL)
     {
-        raiz = raiz->obtenerHijoIzq();
+        current = current->obtenerHijoIzq();
     }
-    return raiz->obtenerDato();
-}
-
-template <class T>
-NodoBin<T> ArbolBinarioOrd<T>::predecessor(NodoBin<T> *nodo)
-{
-    raiz = raiz->obtenerHijoIzq();
-    while (raiz->obtenerHijoDer() != NULL)
-    {
-        raiz = raiz->obtenerHijoDer();
-    }
-    return raiz->obtenerDato();
+    return current;
 }
 
 template <class T>
@@ -139,29 +128,35 @@ NodoBin<T> *ArbolBinarioOrd<T>::eraseNode(T &val, NodoBin<T> *nodo)
     {
         return NULL;
     }
-    if (val > nodo->obtenerDato())
+    if (val < nodo->obtenerDato())
     {
-        return eraseNode(val, nodo->obtenerHijoDer());
+        raiz->fijarHijoIzq(eraseNode(val, nodo->obtenerHijoIzq()));
     }
-    else if (val < nodo->obtenerDato())
+    else if (val > nodo->obtenerDato())
     {
-        return eraseNode(val, nodo->obtenerHijoIzq());
+        raiz->fijarHijoDer(eraseNode(val, nodo->obtenerHijoDer()));
     }
     else
     {
-        if (raiz->obtenerHijoIzq() == NULL && raiz->obtenerHijoDer() == NULL)
+        if (raiz->obtenerHijoIzq() == NULL || raiz->obtenerHijoDer() == NULL)
         {
-            raiz = NULL;
+            NodoBin<T> *temp = raiz->obtenerHijoIzq() ? raiz->obtenerHijoIzq() : raiz->obtenerHijoDer();
+            if (temp == NULL)
+            {
+                temp = raiz;
+                raiz = NULL;
+            }
+            else
+            {
+                *raiz = *temp;
+            }
+            free(temp);
         }
-        else if (raiz->obtenerHijoDer() != NULL)
+        else
         {
-            raiz->fijarDato(successor(raiz));
-            raiz->fijarHijoDer(eraseNode(raiz->obtenerDato(), raiz->obtenerHijoDer()));
-        }
-        else if (raiz->obtenerHijoIzq() != NULL)
-        {
-            raiz->fijarDato(predecessor(raiz));
-            raiz->fijarHijoIzq(eraseNode(raiz->obtenerDato(), raiz->obtenerHijoIzq()));
+            NodoBin<T> *temp = nodeMinVal(raiz->obtenerHijoDer());
+            raiz->fijarDato(temp->obtenerDato());
+            raiz->fijarHijoDer(eraseNode(temp->obtenerDato(), raiz->obtenerHijoDer()));
         }
     }
     return raiz;
