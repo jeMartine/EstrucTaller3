@@ -24,7 +24,7 @@ public:
     void nivelOrden();
     NodoBin<T>* insertRec(NodoBin<T>* nodo, T valor);
 };
-
+//prueba de cambios 
 #include "ArbolBinarioOrd.hxx"
 
 #endif // ARBOLBINARIOORD_H

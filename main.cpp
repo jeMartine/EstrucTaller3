@@ -54,7 +54,7 @@ int main( int argc, char* argv[] ) {
          << "Error al usar \"" << argv[ 1 ]
          << "\" para llenar el arbol binario ordenado."
          << std::endl;
-  hoollaaaaaaaaaaaaaaaaaaaa
+
 
   // Llenar arbol AVL y obtener tiempo de ejecucion
   std::clock_t start_arbolAVL = std::clock( );

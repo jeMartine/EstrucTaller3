@@ -57,7 +57,7 @@ int ArbolBinarioOrd<T>::altura(){
 template <class T>
 int ArbolBinarioOrd<T>::altura(NodoBin <T> * nodo){
     int val;
-
+//prueba de cambios
     if(nodo->esHoja()){
         val=0;
     }else{
