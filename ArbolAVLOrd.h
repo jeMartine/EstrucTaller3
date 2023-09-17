@@ -10,14 +10,14 @@ class ArbolAVLOrd
 private:
     NodoBin<T> *raiz;
 
-struct NodoAVL {
+    struct NodoAVL
+    {
         T valor;
-        NodoAVL* izquierdo;
-        NodoAVL* derecho;
+        NodoAVL *izquierdo;
+        NodoAVL *derecho;
 
-        NodoAVL( T& val) : valor(val), izquierdo(nullptr), derecho(nullptr) {}
+        NodoAVL(T &val) : valor(val), izquierdo(nullptr), derecho(nullptr) {}
     };
-
 
 public:
     ArbolAVLOrd();
@@ -32,15 +32,14 @@ public:
     NodoBin<T> rotacionIzq(NodoBin<T> *nodo);
     NodoBin<T> rotacionDer(NodoBin<T> *nodo);
     int getBalanceFactor(NodoBin<T> *nodo);
-    NodoBin<T> *ArbolAVLOrd<T>::*nodeMinVal(NodoBin<T> *nodo);
     NodoBin<T> *eraseNode(T &val, NodoBin<T> *nodo);
     void preOrden();
     void inOrden();
     void posOrden();
     void nivelOrden();
     NodoBin<T> *insertRec(NodoBin<T> *nodo, T valor);
-    void inOrdenLista(std::list<T>& lista);
-
+    void inOrdenLista(std::list<T> &lista);
+    void inOrdenListaRaiz(NodoAVL *nodo, std::list<T> &lista);
 };
 
 #include "ArbolAVLOrd.hxx"

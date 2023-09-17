@@ -163,7 +163,7 @@ bool ArbolAVLOrd<T>::erase(T &val)
 }
 
 template <class T>
-NodoBin<T> *ArbolAVLOrd<T>::*nodeMinVal(NodoBin<T> *nodo)
+NodoBin<T> *nodeMinVal(NodoBin<T> *nodo)
 {
     NodoBin<T> *current = nodo;
     while (current->obtenerHijoIzq() != NULL)
@@ -267,19 +267,20 @@ void ArbolAVLOrd<T>::nivelOrden()
 {
 }
 
-// esta  es la función para realizar el recorrido en la lista de forma recursiva en el arbol 
+// esta  es la función para realizar el recorrido en la lista de forma recursiva en el arbol
 template <class T>
-void implementacion_ArbolAVL<T>::inOrdenLista(std::list<T>& lista)  {
+void ArbolAVLOrd<T>::inOrdenLista(std::list<T> &lista)
+{
     inOrdenListaRaiz(raiz, lista);
 }
-// esta es la forma recursiva 
+// esta es la forma recursiva
 template <class T>
-void implementacion_ArbolAVL<T>::inOrdenListaRaiz(NodoAVL* nodo, std::list<T>& lista)  {
-    if (nodo != nullptr) {
+void ArbolAVLOrd<T>::inOrdenListaRaiz(NodoAVL *nodo, std::list<T> &lista)
+{
+    if (nodo != nullptr)
+    {
         inOrdenListaRaiz(nodo->izquierdo, lista);
         lista.push_back(nodo->valor);
         inOrdenListaRaiz(nodo->derecho, lista);
     }
 }
-
-
