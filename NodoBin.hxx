@@ -66,7 +66,7 @@ void NodoBin<T>::inOrden()
     if (this->hijoIzq != NULL)
     {
         (this->hijoIzq)->inOrden();
-        cout << this->dato << endl;
+        std::cout << this->dato << endl;
     }
     if (this->hijoDer != NULL)
     {
