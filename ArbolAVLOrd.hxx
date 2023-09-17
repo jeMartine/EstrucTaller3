@@ -1,4 +1,7 @@
 #include "ArbolAVLOrd.h"
+#include <queue>
+
+
 
 template <class T>
 ArbolAVLOrd<T>::ArbolAVLOrd()
@@ -130,6 +133,21 @@ T ArbolAVLOrd<T>::datoRaiz()
 template <class T>
 int ArbolAVLOrd<T>::tamahno()
 {
+     return tamano(this->raiz);
+}
+//recursivo 
+template <class T>
+int ArbolAVLOrd<T>::tamano(NodoBin<T> *nodo)
+{
+    if (nodo == nullptr)
+    {
+        return 0; // Árbol vacío, tamaño cero.
+    }
+    int tamanoIzquierda = tamano(nodo->obtenerHijoIzq());
+    int tamanoDerecha = tamano(nodo->obtenerHijoDer());
+    
+    
+    return 1 + tamanoIzquierda + tamanoDerecha;
 }
 
 template <class T>
@@ -159,12 +177,11 @@ bool ArbolAVLOrd<T>::erase(T &val)
     {
         return false;
     }
-    eraseNode(val, raiz);
-    return true;
+    return eraseNode(val, raiz);
 }
 
 template <class T>
-NodoBin<T> ArbolAVLOrd<T>::nodeMinVal(NodoBin<T> *nodo)
+NodoBin<T> *nodeMinVal(NodoBin<T> *nodo)
 {
     NodoBin<T> *current = nodo;
     while (current->obtenerHijoIzq() != NULL)
@@ -247,33 +264,106 @@ NodoBin<T> *ArbolAVLOrd<T>::eraseNode(T &val, NodoBin<T> *nodo)
 template <class T>
 void ArbolAVLOrd<T>::preOrden()
 {
+    preOrden(this->raiz);
+}
+
+//recursivo
+
+
+template <class T>
+void ArbolAVLOrd<T>::preOrden(NodoBin<T> *nodo)
+{
+    if (nodo != nullptr)
+    {
+        
+        
+
+        preOrden(nodo->obtenerHijoIzq());
+
+       
+        preOrden(nodo->obtenerHijoDer());
+    }
 }
 
 template <class T>
 void ArbolAVLOrd<T>::inOrden()
 {
-    if (!this->esVacio)
+   inOrden(this->raiz); 
+}
+//recursivo 
+template <class T>
+void ArbolAVLOrd<T>::inOrden(NodoBin<T> *nodo)
+{
+    if (nodo != nullptr)
     {
-        (this->raiz())->inOrden();
+        // Recorrer primero el subárbol izquierdo
+        inOrden(nodo->obtenerHijoIzq());
+
+        
+
+        // Luego recorrer el subárbol derecho
+        inOrden(nodo->obtenerHijoDer());
     }
 }
+
+
+
 
 template <class T>
 void ArbolAVLOrd<T>::posOrden()
 {
+    posOrden(this->raiz);
+}
+// recursivo
+template <class T>
+void ArbolAVLOrd<T>::posOrden(NodoBin<T> *nodo)
+{
+    if (nodo != nullptr)
+    {
+        // Recorrer primero el subárbol izquierdo
+        posOrden(nodo->obtenerHijoIzq());
+
+        // Luego recorrer el subárbol derecho
+        posOrden(nodo->obtenerHijoDer());
+
+        
+    }
 }
 
 template <class T>
 void ArbolAVLOrd<T>::nivelOrden()
 {
+    if (this->raiz == nullptr)
+    {
+        return; 
+    }
+
+    std::queue<NodoBin<T> *> cola; // Cola para realizar el recorrido
+    cola.push(this->raiz); // Comenzamos por la raíz
+
+    while (!cola.empty())
+    {
+        NodoBin<T> *nodo = cola.front();
+        cola.pop();
+
+        if (nodo->obtenerHijoIzq() != nullptr)
+        {
+            cola.push(nodo->obtenerHijoIzq());
+        }
+        if (nodo->obtenerHijoDer() != nullptr)
+        {
+            cola.push(nodo->obtenerHijoDer());
+        }
+    }
 }
 
-// esta  es la función para realizar el recorrido en la lista de forma recursiva en el arbol
+
 template <class T>
 void ArbolAVLOrd<T>::inOrdenLista(std::list<T> &lista)
 {
     inOrdenListaRaiz(raiz, lista);
 }
+
 // esta es la forma recursiva
 template <class T>
 void ArbolAVLOrd<T>::inOrdenListaRaiz(NodoAVL *nodo, std::list<T> &lista)
@@ -285,3 +375,4 @@ void ArbolAVLOrd<T>::inOrdenListaRaiz(NodoAVL *nodo, std::list<T> &lista)
         inOrdenListaRaiz(nodo->derecho, lista);
     }
 }
+
