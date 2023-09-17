@@ -111,7 +111,7 @@ bool ArbolBinarioOrd<T>::erase(T &val)
 }
 
 template <class T>
-int successor(NodoBin<T> *nodo)
+int ArbolBinarioOrd<T>::successor(NodoBin<T> *nodo)
 {
     raiz = raiz->hijoDer;
     while (root->hijoizq != NULL)
@@ -122,7 +122,7 @@ int successor(NodoBin<T> *nodo)
 }
 
 template <class T>
-int predecessor(NodoBin<T> *nodo)
+int ArbolBinarioOrd<T>::predecessor(NodoBin<T> *nodo)
 {
     raiz = raiz->hijoIzq;
     while (root->hijoDer != NULL)
