@@ -10,14 +10,6 @@ class ArbolAVLOrd
 private:
     NodoBin<T> *raiz;
 
-    struct NodoAVL
-    {
-        T valor;
-        NodoAVL *izquierdo;
-        NodoAVL *derecho;
-
-        NodoAVL(T &val) : valor(val), izquierdo(nullptr), derecho(nullptr) {}
-    };
 
 public:
     ArbolAVLOrd();
