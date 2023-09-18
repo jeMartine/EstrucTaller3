@@ -1,6 +1,6 @@
 #ifndef ARBOLAVLORD_H
 #define ARBOLAVLORD_H
-#include "NodoBin.h"
+#include "NodoAVL.h"
 #include <list>
 
 template <class T>
@@ -8,8 +8,7 @@ template <class T>
 class ArbolAVLOrd
 {
 private:
-    NodoBin<T> *raiz;
-    NodoAvl<T> *ra;
+    NodoAVL<T> *raiz;
 
 
 public:

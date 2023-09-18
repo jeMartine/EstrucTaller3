@@ -1,24 +1,28 @@
 #ifndef NODOAVL_H
 #define NODOAVL_H
 template <class T>
-class NodoAVL
-{
+class NodoAVL{
 private:
-    T valor;
-    NodoAVL<T> *izquierdo;
-    NodoAVL<T> *derecho;
-    int altura;
-    public:
+    T dato;
+    NodoAVL<T> *hijoIzq;
+    NodoAVL<T> *hijoDer;
+    NodoAVL<T> *padre;
+
+public:
     NodoAVL(T &val);
-    T obtenerValor();
-    NodoAVL<T> *obtenerIzquierdo();
-    NodoAVL<T> *obtenerDerecho();
-    int obtenerAltura();
-    void fijarValor( T &val);
-    void fijarIzquierdo(NodoAVL<T> *nodo) ;
-    void fijarDerecho(NodoAVL<T> *nodo) ;
-    void fijarAltura(int alt);
+    NodoAVL();
+
+    T &obtenerDato();
+    void fijarDato( T &val);
+    NodoAVL<T> *obtenerHijoIzq();
+    NodoAVL<T> *obtenerHijoDer();
+    NodoAVL<T> *obtenerPadre();
+    void fijarHijoIzq(NodoAVL<T> *izq);
+    void fijarHijoDer(NodoAVL<T> *der);
+    void fijarPadre(NodoAVL<T> *pad);
+
     bool eshoja();
+
 };
 #include "NodoAvl.hxx"
 

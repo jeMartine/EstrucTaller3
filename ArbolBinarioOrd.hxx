@@ -103,64 +103,61 @@ int ArbolBinarioOrd<T>::tamahno()
 template <class T>
 bool ArbolBinarioOrd<T>::erase(T &val)
 {
-    if (raiz == NULL)
-    {
+
+    if(raiz == nullptr)
         return false;
-    }
-    eraseNode(val, raiz);
-    return true;
+    std::cout<<"se quiere eliminar "<< val<<"\n";
+
+    raiz = eraseNode(val, raiz);
+    return true; //cuando se puede elimiarn
 }
 
 template <class T>
-NodoBin<T> ArbolBinarioOrd<T>::nodeMinVal(NodoBin<T> *nodo)
+NodoBin<T> *nodeMinVal(NodoBin<T> *nodo)
 {
-    NodoBin<T> *current = nodo;
-    while (current->obtenerHijoIzq() != NULL)
-    {
-        current = current->obtenerHijoIzq();
+    while(nodo->obtenerHijoIzq() != nullptr){
+        nodo = nodo -> obtenerHijoIzq();
     }
-    return current;
+    return nodo;
 }
 
 template <class T>
 NodoBin<T> *ArbolBinarioOrd<T>::eraseNode(T &val, NodoBin<T> *nodo)
 {
-    if (raiz == NULL)
-    {
-        return NULL;
+    //si el valor buscado no existe dentro del arbol
+    if (nodo == NULL){
+        std::cout<<"No existe el valor\n";
+        return nodo; 
     }
-    if (val < nodo->obtenerDato())
-    {
-        raiz->fijarHijoIzq(eraseNode(val, nodo->obtenerHijoIzq()));
-    }
-    else if (val > nodo->obtenerDato())
-    {
-        raiz->fijarHijoDer(eraseNode(val, nodo->obtenerHijoDer()));
-    }
-    else
-    {
-        if (raiz->obtenerHijoIzq() == NULL || raiz->obtenerHijoDer() == NULL)
+
+    if (val < nodo->obtenerDato()){
+        nodo->fijarHijoIzq(eraseNode(val, nodo->obtenerHijoIzq()));
+        //std::cout<<"Padre "<<nodo->obtenerDato()<<" Eliminado izquierdo: "<<val<<"\n";
+    }else if (val > nodo->obtenerDato()){
+        nodo->fijarHijoDer(eraseNode(val, nodo->obtenerHijoDer()));
+        //std::cout<<"Padre "<<nodo->obtenerDato()<<" Eliminado derecho: "<<val<<"\n";
+
+    }else{
+        if (nodo->obtenerHijoIzq() == NULL)
         {
-            NodoBin<T> *temp = raiz->obtenerHijoIzq() ? raiz->obtenerHijoIzq() : raiz->obtenerHijoDer();
-            if (temp == NULL)
-            {
-                temp = raiz;
-                raiz = NULL;
-            }
-            else
-            {
-                *raiz = *temp;
-            }
-            free(temp);
+            NodoBin<T> *temp = nodo->obtenerHijoDer();
+            delete nodo;
+            return temp;
+        }
+        else if (nodo->obtenerHijoDer() == NULL)
+        {
+            NodoBin<T> *temp = nodo->obtenerHijoIzq();
+            delete nodo;
+            return temp;
         }
         else
         {
-            NodoBin<T> *temp = nodeMinVal(raiz->obtenerHijoDer());
-            raiz->fijarDato(temp->obtenerDato());
-            raiz->fijarHijoDer(eraseNode(temp->obtenerDato(), raiz->obtenerHijoDer()));
+            NodoBin<T> *temp = nodeMinVal(nodo->obtenerHijoDer());
+            nodo->fijarDato(temp->obtenerDato());
+            nodo->fijarHijoDer(eraseNode(temp->obtenerDato(), nodo->obtenerHijoDer()));
         }
     }
-    return raiz;
+    return nodo;
 }
 
 template <class T>

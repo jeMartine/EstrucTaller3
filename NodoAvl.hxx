@@ -1,53 +1,64 @@
 #include "NodoAvl.h"
 template <class T>
 NodoAVL<T>::NodoAVL(T &valor){
-    valor= val;
-    izquierdo=NULL;
-    derecho=NULL;
-
-
-}
-
-
-template <class T>
-T NodoAVL<T>::obtenerValor(){
-    return valor;
-}
-template <class T>
-NodoAVL<T> * NodoAVL<T>::obtenerIzquierdo(){
-return izquierdo;
-}
-template <class T>
-NodoAVL<T> * NodoAVL<T>::obtenerDerecho(){
-return derecho;
+    dato = valor;
+    hijoIzq = NULL;
+    hijoDer = NULL;
+    padre = NULL;
 }
 
 template <class T>
-int NodoAVL<T>:: obtenerAltura(){
-return altura;
+NodoAVL<T>::NodoAVL(){
+    hijoIzq = NULL;
+    hijoDer = NULL;
+    padre = NULL;
 }
+
+
 template <class T>
-void NodoAVL<T>::fijarValor( T &val){
-valor = val;
-}
-template <class T>
-void NodoAVL<T>::fijarIzquierdo(NodoAVL<T> *nodo){
-izquierdo = nodo;
-}
-template <class T>
-void NodoAVL<T>::fijarDerecho(NodoAVL<T> *nodo){
-derecho = nodo;
-}
-template <class T>
-void NodoAVL<T>::fijarAltura(int alt){
-altura = alt;
+T& NodoAVL<T>::obtenerDato(){
+    return dato;
 }
 
 template <class T>
- bool NodoAVL<T>::eshoja()
-{
+NodoAVL<T> * NodoAVL<T>::obtenerHijoIzq(){
+    return hijoIzq;
+}
+
+template <class T>
+NodoAVL<T> * NodoAVL<T>::obtenerHijoDer(){
+    return hijoDer;
+}
+
+template <class T>
+NodoAVL<T> * NodoAVL<T>::obtenerPadre(){
+    return padre;
+}
+
+template <class T>
+void NodoAVL<T>::fijarDato( T &valor){
+    dato = valor;
+}
+
+template <class T>
+void NodoAVL<T>::fijarHijoIzq(NodoAVL<T> *izq){
+    hijoIzq = izq;
+ }
+
+template <class T>
+void NodoAVL<T>::fijarHijoDer(NodoAVL<T> *der){
+    hijoDer = der;
+}
+
+template <class T>
+void NodoAVL<T>::fijarPadre(NodoAVL<T> *pad){
+    padre = pad;
+}
+
+template <class T>
+bool NodoAVL<T>::eshoja(){
     if (derecho == NULL && izquierdo==NULL)
-      return true;
+        return true;
     else
-    return false;
+        return false;
 }
