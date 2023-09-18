@@ -57,7 +57,7 @@ void NodoAVL<T>::fijarPadre(NodoAVL<T> *pad){
 
 template <class T>
 bool NodoAVL<T>::eshoja(){
-    if (derecho == NULL && izquierdo==NULL)
+    if (hijoDer == NULL && hijoIzq==NULL)
         return true;
     else
         return false;
