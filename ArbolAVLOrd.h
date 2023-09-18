@@ -17,26 +17,27 @@ public:
     T datoRaiz();
     bool esVacio();
     int altura();
-    int altura(NodoBin<T> *nodo);
+    int altura(NodoAVL<T> *nodo);
     int tamahno();
-    int tamano(NodoBin<T> *nodo);
+    int tamano(NodoAVL<T> *nodo);
     bool insert(T &val); // modificar para que sea AVL
     bool erase(T &val);  // modificar para que sea AVL
-    NodoBin<T> rotacionIzq(NodoBin<T> *nodo);
-    NodoBin<T> rotacionDer(NodoBin<T> *nodo);
-    int getBalanceFactor(NodoBin<T> *nodo);
-    NodoBin<T> *eraseNode(T &val, NodoBin<T> *nodo);
+    NodoAVL<T> rotacionIzq(NodoAVL<T> *nodo);
+    NodoAVL<T> rotacionDer(NodoAVL<T> *nodo);
+    int getBalanceFactor(NodoAVL<T> *nodo);
+    NodoAVL<T> *insertRec(NodoAVL<T> *nodo, NodoAVL<T> *padre, T valor);
+    NodoAVL<T> *eraseNode(T &val, NodoAVL<T> *nodo);
     void preOrden();
-    void preOrden(NodoBin<T> *nodo);
+    void preOrden(NodoAVL<T> *nodo);
     void inOrden();
-    void inOrden(NodoBin<T> *nodo);
+    void inOrden(NodoAVL<T> *nodo);
     void posOrden();
-    void posOrden(NodoBin<T> *nodo);
+    void posOrden(NodoAVL<T> *nodo);
     void nivelOrden();
     
-    NodoBin<T> *insertRec(NodoBin<T> *nodo, T valor);
     void inOrdenLista(std::list<T> &lista);
-    void inOrdenListaRaiz(NodoAvl<T> *nodo, std::list<T> &lista);
+    void inOrdenListaRaiz(NodoAVL<T> *nodo, std::list<T> &lista);
+
 };
 
 #include "ArbolAVLOrd.hxx"
