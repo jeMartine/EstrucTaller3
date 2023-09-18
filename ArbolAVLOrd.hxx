@@ -370,9 +370,9 @@ void ArbolAVLOrd<T>::inOrdenListaRaiz(NodoBin<T> *nodo, std::list<T> &lista)
 {
     if (nodo != nullptr)
     {
-        inOrdenListaRaiz(nodo->izquierdo, lista);
-        lista.push_back(nodo->valor);
-        inOrdenListaRaiz(nodo->derecho, lista);
+         inOrdenListaRaiz(nodo->obtenerIzquierdo(), lista);
+        lista.push_back(nodo->obtenerValor());
+        inOrdenListaRaiz(nodo->obtenerDerecho(), lista);
     }
 }
 
