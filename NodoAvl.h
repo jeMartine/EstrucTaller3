@@ -18,6 +18,7 @@ private:
     void fijarIzquierdo(NodoAVL<T> *nodo) ;
     void fijarDerecho(NodoAVL<T> *nodo) ;
     void fijarAltura(int alt);
+    bool eshoja();
 };
 #include "NodoAvl.hxx"
 
