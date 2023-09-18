@@ -1,50 +1,48 @@
 #include "ArbolAVLOrd.h"
 #include <queue>
 
-
-
 template <class T>
 ArbolAVLOrd<T>::ArbolAVLOrd()
 {
-    this->raiz = NULL;
+    this->raiz = nullptr;
 }
 
 template <class T>
 ArbolAVLOrd<T>::~ArbolAVLOrd()
 {
-    if (this->raiz != NULL)
+    if (this->raiz != nullptr)
     {
         delete this->raiz;
-        this->raiz = NULL;
+        this->raiz = nullptr;
     }
 }
 
 template <class T>
 bool ArbolAVLOrd<T>::esVacio()
 {
-    return this->raiz == NULL;
+    return this->raiz == nullptr;
 }
 
 template <class T>
 bool ArbolAVLOrd<T>::insert(T &val)
 {
-    raiz = insertRec(raiz, val);
+    raiz = insertRec(raiz, nullptr, val);
 }
 
 template <class T>
-int ArbolAVLOrd<T>::getBalanceFactor(NodoBin<T> *nodo)
+int ArbolAVLOrd<T>::getBalanceFactor(NodoAVL<T> *nodo)
 {
-    if (nodo == NULL)
+    if (nodo == nullptr)
         return 0;
     return altura(nodo->obtenerHijoIzq()) - altura(nodo->obtenerHijoDer());
 }
 
 template <class T>
-NodoBin<T> *ArbolAVLOrd<T>::insertRec(NodoBin<T> *nodo, T valor)
+NodoAVL<T> *ArbolAVLOrd<T>::insertRec(NodoAVL<T> *nodo, NodoAVL<T> *padre, T valor)
 {
     if (nodo == nullptr)
     {
-        return new NodoBin<T>(valor);
+        return new NodoAVL<T>(valor, padre);
     }
 
     if (valor < nodo->obtenerDato())
@@ -52,14 +50,14 @@ NodoBin<T> *ArbolAVLOrd<T>::insertRec(NodoBin<T> *nodo, T valor)
         if (nodo->obtenerHijoIzq() == nullptr)
             std::cout << "Padre: " << nodo->obtenerDato() << " agregado izquierdo: " << valor << "\n";
 
-        nodo->fijarHijoIzq(insertRec(nodo->obtenerHijoIzq(), valor));
+        nodo->fijarHijoIzq(insertRec(nodo->obtenerHijoIzq(), nodo, valor));
     }
     else if (valor > nodo->obtenerDato())
     {
         if (nodo->obtenerHijoDer() == nullptr)
             std::cout << "Padre: " << nodo->obtenerDato() << " agregado derecho: " << valor << "\n";
 
-        nodo->fijarHijoDer(insertRec(nodo->obtenerHijoDer(), valor));
+        nodo->fijarHijoDer(insertRec(nodo->obtenerHijoDer(), nodo, valor));
     }
     if (getBalanceFactor(nodo) > 1)
     {
@@ -98,11 +96,11 @@ int ArbolAVLOrd<T>::altura()
 }
 
 template <class T>
-int ArbolAVLOrd<T>::altura(NodoBin<T> *nodo)
+int ArbolAVLOrd<T>::altura(NodoAVL<T> *nodo)
 {
     int val;
     // prueba de cambios
-    if (nodo->esHoja())
+    if (nodo->eshoja())
     {
         val = 0;
     }
@@ -110,9 +108,9 @@ int ArbolAVLOrd<T>::altura(NodoBin<T> *nodo)
     {
         int valt_izq = -1;
         int valt_der = -1;
-        if (nodo->obtenerHijoIzq() != NULL)
+        if (nodo->obtenerHijoIzq() != nullptr)
             valt_izq = this->altura(nodo->obtenerHijoIzq());
-        if (nodo->obtenerHijoDer() != NULL)
+        if (nodo->obtenerHijoDer() != nullptr)
             valt_der = this->altura(nodo->obtenerHijoDer());
 
         if (valt_izq > valt_der)
@@ -137,7 +135,7 @@ int ArbolAVLOrd<T>::tamahno()
 }
 //recursivo 
 template <class T>
-int ArbolAVLOrd<T>::tamano(NodoBin<T> *nodo)
+int ArbolAVLOrd<T>::tamano(NodoAVL<T> *nodo)
 {
     if (nodo == nullptr)
     {
@@ -146,34 +144,51 @@ int ArbolAVLOrd<T>::tamano(NodoBin<T> *nodo)
     int tamanoIzquierda = tamano(nodo->obtenerHijoIzq());
     int tamanoDerecha = tamano(nodo->obtenerHijoDer());
     
-    
     return 1 + tamanoIzquierda + tamanoDerecha;
 }
 
 template <class T>
-NodoBin<T> ArbolAVLOrd<T>::rotacionIzq(NodoBin<T> *nodo)
+NodoAVL<T> ArbolAVLOrd<T>::rotacionIzq(NodoAVL<T> *nodo)
 {
-    NodoBin<T> *temp = nodo->obtenerHijoDer();
-    NodoBin<T> *temp2 = temp->obtenerHijoIzq();
+    NodoAVL<T> *temp = nodo->obtenerHijoDer();
+    NodoAVL<T> *temp2 = temp->obtenerHijoIzq();
     temp->fijarHijoIzq(nodo);
     nodo->fijarHijoDer(temp2);
-    return temp;
+    temp->fijarPadre(nodo->obtenerPadre());
+    if (nodo->obtenerPadre() != nullptr)
+    {
+        if (nodo->obtenerPadre()->obtenerHijoIzq() == nodo)
+            nodo->obtenerPadre()->fijarHijoIzq(temp);
+        else
+            nodo->obtenerPadre()->fijarHijoDer(temp);
+    }
+    nodo->fijarPadre(temp);
+    return *temp;
 }
 
 template <class T>
-NodoBin<T> ArbolAVLOrd<T>::rotacionDer(NodoBin<T> *nodo)
+NodoAVL<T> ArbolAVLOrd<T>::rotacionDer(NodoAVL<T> *nodo)
 {
-    NodoBin<T> *temp = nodo->obtenerHijoIzq();
-    NodoBin<T> *temp2 = temp->obtenerHijoDer();
+    NodoAVL<T> *temp = nodo->obtenerHijoIzq();
+    NodoAVL<T> *temp2 = temp->obtenerHijoDer();
     temp->fijarHijoDer(nodo);
     nodo->fijarHijoIzq(temp2);
-    return temp;
+    temp->fijarPadre(nodo->obtenerPadre());
+    if (nodo->obtenerPadre() != nullptr)
+    {
+        if (nodo->obtenerPadre()->obtenerHijoIzq() == nodo)
+            nodo->obtenerPadre()->fijarHijoIzq(temp);
+        else
+            nodo->obtenerPadre()->fijarHijoDer(temp);
+    }
+    nodo->fijarPadre(temp);
+    return *temp;
 }
 
 template <class T>
 bool ArbolAVLOrd<T>::erase(T &val)
 {
-    if (raiz == NULL)
+    if (raiz == nullptr)
     {
         return false;
     }
@@ -181,10 +196,10 @@ bool ArbolAVLOrd<T>::erase(T &val)
 }
 
 template <class T>
-NodoBin<T> *nodeMinVal(NodoBin<T> *nodo)
+NodoAVL<T> *nodeMinVal(NodoAVL<T> *nodo)
 {
-    NodoBin<T> *current = nodo;
-    while (current->obtenerHijoIzq() != NULL)
+    NodoAVL<T> *current = nodo;
+    while (current->obtenerHijoIzq() != nullptr)
     {
         current = current->obtenerHijoIzq();
     }
@@ -192,11 +207,11 @@ NodoBin<T> *nodeMinVal(NodoBin<T> *nodo)
 }
 
 template <class T>
-NodoBin<T> *ArbolAVLOrd<T>::eraseNode(T &val, NodoBin<T> *nodo)
+bool ArbolAVLOrd<T>::* eraseNode(T &val, NodoAVL<T> *nodo)
 {
-    if (raiz == NULL)
+    if (raiz == nullptr)
     {
-        return NULL;
+        return false;
     }
     if (val < nodo->obtenerDato())
     {
@@ -208,13 +223,13 @@ NodoBin<T> *ArbolAVLOrd<T>::eraseNode(T &val, NodoBin<T> *nodo)
     }
     else
     {
-        if (raiz->obtenerHijoIzq() == NULL || raiz->obtenerHijoDer() == NULL)
+        if (raiz->obtenerHijoIzq() == nullptr || raiz->obtenerHijoDer() == nullptr)
         {
-            NodoBin<T> *temp = raiz->obtenerHijoIzq() ? raiz->obtenerHijoIzq() : raiz->obtenerHijoDer();
-            if (temp == NULL)
+            NodoAVL<T> *temp = raiz->obtenerHijoIzq() ? raiz->obtenerHijoIzq() : raiz->obtenerHijoDer();
+            if (temp == nullptr)
             {
                 temp = raiz;
-                raiz = NULL;
+                raiz = nullptr;
             }
             else
             {
@@ -224,12 +239,12 @@ NodoBin<T> *ArbolAVLOrd<T>::eraseNode(T &val, NodoBin<T> *nodo)
         }
         else
         {
-            NodoBin<T> *temp = nodeMinVal(raiz->obtenerHijoDer());
+            NodoAVL<T> *temp = nodeMinVal(raiz->obtenerHijoDer());
             raiz->fijarDato(temp->obtenerDato());
             raiz->fijarHijoDer(eraseNode(temp->obtenerDato(), raiz->obtenerHijoDer()));
         }
     }
-    if (raiz == NULL)
+    if (raiz == nullptr)
     {
         return raiz;
     }
@@ -268,19 +283,12 @@ void ArbolAVLOrd<T>::preOrden()
 }
 
 //recursivo
-
-
 template <class T>
-void ArbolAVLOrd<T>::preOrden(NodoBin<T> *nodo)
+void ArbolAVLOrd<T>::preOrden(NodoAVL<T> *nodo)
 {
     if (nodo != nullptr)
     {
-        
-        
-
         preOrden(nodo->obtenerHijoIzq());
-
-       
         preOrden(nodo->obtenerHijoDer());
     }
 }
@@ -292,22 +300,17 @@ void ArbolAVLOrd<T>::inOrden()
 }
 //recursivo 
 template <class T>
-void ArbolAVLOrd<T>::inOrden(NodoBin<T> *nodo)
+void ArbolAVLOrd<T>::inOrden(NodoAVL<T> *nodo)
 {
     if (nodo != nullptr)
     {
         // Recorrer primero el subárbol izquierdo
         inOrden(nodo->obtenerHijoIzq());
 
-        
-
         // Luego recorrer el subárbol derecho
         inOrden(nodo->obtenerHijoDer());
     }
 }
-
-
-
 
 template <class T>
 void ArbolAVLOrd<T>::posOrden()
@@ -316,7 +319,7 @@ void ArbolAVLOrd<T>::posOrden()
 }
 // recursivo
 template <class T>
-void ArbolAVLOrd<T>::posOrden(NodoBin<T> *nodo)
+void ArbolAVLOrd<T>::posOrden(NodoAVL<T> *nodo)
 {
     if (nodo != nullptr)
     {
@@ -325,8 +328,6 @@ void ArbolAVLOrd<T>::posOrden(NodoBin<T> *nodo)
 
         // Luego recorrer el subárbol derecho
         posOrden(nodo->obtenerHijoDer());
-
-        
     }
 }
 
@@ -338,12 +339,12 @@ void ArbolAVLOrd<T>::nivelOrden()
         return; 
     }
 
-    std::queue<NodoBin<T> *> cola; // Cola para realizar el recorrido
+    std::queue<NodoAVL<T> *> cola; // Cola para realizar el recorrido
     cola.push(this->raiz); // Comenzamos por la raíz
 
     while (!cola.empty())
     {
-        NodoBin<T> *nodo = cola.front();
+        NodoAVL<T> *nodo = cola.front();
         cola.pop();
 
         if (nodo->obtenerHijoIzq() != nullptr)
@@ -357,22 +358,20 @@ void ArbolAVLOrd<T>::nivelOrden()
     }
 }
 
-
 template <class T>
 void ArbolAVLOrd<T>::inOrdenLista(std::list<T> &lista)
 {
-    inOrdenListaRaiz(ra, lista);
+    inOrdenListaRaiz(raiz, lista);
 }
 
 // esta es la forma recursiva
 template <class T>
-void ArbolAVLOrd<T>::inOrdenListaRaiz(NodoBin<T> *nodo, std::list<T> &lista)
+void ArbolAVLOrd<T>::inOrdenListaRaiz(NodoAVL<T> *nodo, std::list<T> &lista)
 {
     if (nodo != nullptr)
     {
-         inOrdenListaRaiz(nodo->obtenerIzquierdo(), lista);
-        lista.push_back(nodo->obtenerValor());
-        inOrdenListaRaiz(nodo->obtenerDerecho(), lista);
+         inOrdenListaRaiz(nodo->obtenerHijoIzq(), lista);
+        lista.push_back(nodo->obtenerDato());
+        inOrdenListaRaiz(nodo->obtenerHijoDer(), lista);
     }
 }
-
