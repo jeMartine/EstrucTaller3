@@ -33,3 +33,12 @@ template <class T>
 void NodoAVL<T>::fijarAltura(int alt){
 altura = alt;
 }
+
+template <class T>
+bool NodoBin<T>::esHoja()
+{
+    if (hijoIzq == NULL && hijoDer == NULL)
+        return true;
+    else
+        return false;
+}
