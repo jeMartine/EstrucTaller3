@@ -9,6 +9,7 @@ class ArbolAVLOrd
 {
 private:
     NodoBin<T> *raiz;
+    NodoAvl<T> *ra;
 
 
 public:
@@ -36,7 +37,7 @@ public:
     
     NodoBin<T> *insertRec(NodoBin<T> *nodo, T valor);
     void inOrdenLista(std::list<T> &lista);
-    void inOrdenListaRaiz(NodoBin<T> *nodo, std::list<T> &lista);
+    void inOrdenListaRaiz(NodoAvl<T> *nodo, std::list<T> &lista);
 };
 
 #include "ArbolAVLOrd.hxx"
