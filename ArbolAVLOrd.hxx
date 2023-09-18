@@ -361,7 +361,7 @@ void ArbolAVLOrd<T>::nivelOrden()
 template <class T>
 void ArbolAVLOrd<T>::inOrdenLista(std::list<T> &lista)
 {
-    inOrdenListaRaiz(raiz, lista);
+    inOrdenListaRaiz(ra, lista);
 }
 
 // esta es la forma recursiva
