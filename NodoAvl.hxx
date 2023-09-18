@@ -1,4 +1,13 @@
 #include "NodoAvl.h"
+template <class T>
+NodoAVL<T>::NodoAVL(T &valor){
+    valor= val;
+    izquierdo=NULL;
+    derecho=NULL;
+
+
+}
+
 
 template <class T>
 T NodoAVL<T>::obtenerValor(){
@@ -35,10 +44,10 @@ altura = alt;
 }
 
 template <class T>
-bool NodoBin<T>::esHoja()
+ bool NodoAVL<T>::eshoja()
 {
-    if (hijoIzq == NULL && hijoDer == NULL)
-        return true;
+    if (derecho == NULL && izquierdo==NULL)
+      return true;
     else
-        return false;
+    return false;
 }
