@@ -9,7 +9,7 @@ private:
     NodoAVL<T> *derecho;
     int altura;
     public:
-    NodoAVL(T &val) : valor(val), izquierdo(nullptr), derecho(nullptr), altura(1) {}
+    NodoAVL(T &val);
     T obtenerValor();
     NodoAVL<T> *obtenerIzquierdo();
     NodoAVL<T> *obtenerDerecho();
