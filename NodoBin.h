@@ -21,7 +21,7 @@ public:
     void fijarHijoIzq(NodoBin<T> *izq);
     void fijarHijoDer(NodoBin<T> *der);
     bool esHoja();
-    void inOrden();
+   
 };
 
 #include "NodoBin.hxx"
