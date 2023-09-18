@@ -366,7 +366,7 @@ void ArbolAVLOrd<T>::inOrdenLista(std::list<T> &lista)
 
 // esta es la forma recursiva
 template <class T>
-void ArbolAVLOrd<T>::inOrdenListaRaiz(NodoAVL *nodo, std::list<T> &lista)
+void ArbolAVLOrd<T>::inOrdenListaRaiz(NodoBin<T> *nodo, std::list<T> &lista)
 {
     if (nodo != nullptr)
     {
