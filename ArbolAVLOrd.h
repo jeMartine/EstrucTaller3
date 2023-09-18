@@ -36,7 +36,7 @@ public:
     
     NodoBin<T> *insertRec(NodoBin<T> *nodo, T valor);
     void inOrdenLista(std::list<T> &lista);
-    void inOrdenListaRaiz(NodoAVL *nodo, std::list<T> &lista);
+    void inOrdenListaRaiz(NodoBin<T> *nodo, std::list<T> &lista);
 };
 
 #include "ArbolAVLOrd.hxx"
