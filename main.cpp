@@ -56,13 +56,16 @@ int main(int argc, char *argv[])
         << "\" para llenar el arbol binario ordenado."
         << std::endl;
 
+  std::cout << "\n\n\n\n";
+
   // Llenar arbol AVL y obtener tiempo de ejecucion
   std::clock_t start_arbolAVL = std::clock();
   // TODO #6: llenar arbol AVL desde archivo con funcion ReadTree
   bool llenar_arbolAVL = ReadTree(arbolAVL, argv[1]);
   std::clock_t end_arbolAVL = std::clock();
-  double tiempo_arbolAVL =
-      (end_arbolAVL - start_arbolAVL) / double(CLOCKS_PER_SEC);
+
+  std::cout << "Altura AVL " << arbolAVL.altura() << "\n";
+  double tiempo_arbolAVL = (end_arbolAVL - start_arbolAVL) / double(CLOCKS_PER_SEC);
   // TODO #7: si se pudo llenar el arbol, imprimir el tiempo
   if (llenar_arbolAVL)
     std::cout

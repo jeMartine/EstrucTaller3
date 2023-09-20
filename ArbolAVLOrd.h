@@ -19,13 +19,13 @@ public:
     int altura(NodoAVL<T> *nodo);
     int tamahno();
     int tamano(NodoAVL<T> *nodo);
-    void insert(T &val); // modificar para que sea AVL
+    bool insert(T &val); // modificar para que sea AVL
     bool erase(T &val);  // modificar para que sea AVL
-    NodoAVL<T> rotacionIzq(NodoAVL<T> *nodo);
-    NodoAVL<T> rotacionDer(NodoAVL<T> *nodo);
+    NodoAVL<T> *rotacionIzq(NodoAVL<T> *nodo);
+    NodoAVL<T> *rotacionDer(NodoAVL<T> *nodo);
     int getBalanceFactor(NodoAVL<T> *nodo);
-    NodoAVL<T> *insertRec(NodoAVL<T> *nodo, NodoAVL<T> *padre, T valor);
-    bool *eraseNode(T &val, NodoAVL<T> *nodo);
+    NodoAVL<T> *insertRec(NodoAVL<T> *nodo, T valor);
+    NodoAVL<T> *eraseNode(T &val, NodoAVL<T> *nodo);
     void preOrden();
     void preOrden(NodoAVL<T> *nodo);
     void inOrden();

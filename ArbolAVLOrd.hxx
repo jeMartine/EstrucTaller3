@@ -4,29 +4,30 @@
 template <class T>
 ArbolAVLOrd<T>::ArbolAVLOrd()
 {
-    this->raiz = nullptr;
+    this->raiz = NULL;
 }
 
 template <class T>
 ArbolAVLOrd<T>::~ArbolAVLOrd()
 {
-    if (this->raiz != nullptr)
+    if (this->raiz != NULL)
     {
         delete this->raiz;
-        this->raiz = nullptr;
+        this->raiz = NULL;
     }
 }
 
 template <class T>
 bool ArbolAVLOrd<T>::esVacio()
 {
-    return this->raiz == nullptr;
+    return this->raiz == NULL;
 }
 
 template <class T>
-void ArbolAVLOrd<T>::insert(T &val)
+bool ArbolAVLOrd<T>::insert(T &val)
 {
-    raiz = insertRec(raiz, nullptr, val);
+    raiz = insertRec(raiz, val);
+    return true;
 }
 
 template <class T>
@@ -38,14 +39,11 @@ int ArbolAVLOrd<T>::getBalanceFactor(NodoAVL<T> *nodo)
 }
 
 template <class T>
-NodoAVL<T> ArbolAVLOrd<T>::*insertRec(NodoAVL<T> *nodo, NodoAVL<T> *padre, T valor)
+NodoAVL<T> *ArbolAVLOrd<T>::insertRec(NodoAVL<T> *nodo, T valor)
 {
     if (nodo == nullptr)
     {
-        NodoAVL<T> *newNodo = new NodoAVL<T>();
-        newNodo->fijarDato(valor);
-        newNodo->fijarPadre(padre);
-        return newNodo;
+        return new NodoAVL<T>(valor);
     }
 
     if (valor < nodo->obtenerDato())
@@ -53,24 +51,31 @@ NodoAVL<T> ArbolAVLOrd<T>::*insertRec(NodoAVL<T> *nodo, NodoAVL<T> *padre, T val
         if (nodo->obtenerHijoIzq() == nullptr)
             std::cout << "Padre: " << nodo->obtenerDato() << " agregado izquierdo: " << valor << "\n";
 
-        nodo->fijarHijoIzq(insertRec(nodo->obtenerHijoIzq(), nodo, valor));
+        nodo->fijarHijoIzq(insertRec(nodo->obtenerHijoIzq(), valor));
     }
     else if (valor > nodo->obtenerDato())
     {
         if (nodo->obtenerHijoDer() == nullptr)
             std::cout << "Padre: " << nodo->obtenerDato() << " agregado derecho: " << valor << "\n";
 
-        nodo->fijarHijoDer(insertRec(nodo->obtenerHijoDer(), nodo, valor));
+        nodo->fijarHijoDer(insertRec(nodo->obtenerHijoDer(), valor));
     }
-    if (getBalanceFactor(nodo) > 1)
+    else
+    {
+        return nodo;
+    }
+    int balance = getBalanceFactor(nodo);
+    if (balance > 1)
     {
         if (valor < nodo->obtenerHijoIzq()->obtenerDato())
         {
+            std::cout << "Rotacion derecha\n";
             return rotacionDer(nodo);
         }
-        else
+        else if (valor > nodo->obtenerHijoIzq()->obtenerDato())
         {
             nodo->fijarHijoIzq(rotacionIzq(nodo->obtenerHijoIzq()));
+            std::cout << "Rotacion derecha\n";
             return rotacionDer(nodo);
         }
     }
@@ -78,10 +83,12 @@ NodoAVL<T> ArbolAVLOrd<T>::*insertRec(NodoAVL<T> *nodo, NodoAVL<T> *padre, T val
     {
         if (valor > nodo->obtenerHijoDer()->obtenerDato())
         {
+            std::cout << "Rotacion izquierda\n";
             return rotacionIzq(nodo);
         }
         else if (valor < nodo->obtenerHijoDer()->obtenerDato())
         {
+            std::cout << "Rotacion izquierda\n";
             nodo->fijarHijoDer(rotacionDer(nodo->obtenerHijoDer()));
             return rotacionIzq(nodo);
         }
@@ -151,7 +158,7 @@ int ArbolAVLOrd<T>::tamano(NodoAVL<T> *nodo)
 }
 
 template <class T>
-NodoAVL<T> ArbolAVLOrd<T>::rotacionIzq(NodoAVL<T> *nodo)
+NodoAVL<T> *ArbolAVLOrd<T>::rotacionIzq(NodoAVL<T> *nodo)
 {
     NodoAVL<T> *temp = nodo->obtenerHijoDer();
     NodoAVL<T> *temp2 = temp->obtenerHijoIzq();
@@ -166,11 +173,11 @@ NodoAVL<T> ArbolAVLOrd<T>::rotacionIzq(NodoAVL<T> *nodo)
             nodo->obtenerPadre()->fijarHijoDer(temp);
     }
     nodo->fijarPadre(temp);
-    return *temp;
+    return temp;
 }
 
 template <class T>
-NodoAVL<T> ArbolAVLOrd<T>::rotacionDer(NodoAVL<T> *nodo)
+NodoAVL<T> *ArbolAVLOrd<T>::rotacionDer(NodoAVL<T> *nodo)
 {
     NodoAVL<T> *temp = nodo->obtenerHijoIzq();
     NodoAVL<T> *temp2 = temp->obtenerHijoDer();
@@ -185,7 +192,7 @@ NodoAVL<T> ArbolAVLOrd<T>::rotacionDer(NodoAVL<T> *nodo)
             nodo->obtenerPadre()->fijarHijoDer(temp);
     }
     nodo->fijarPadre(temp);
-    return *temp;
+    return temp;
 }
 
 template <class T>
@@ -195,7 +202,8 @@ bool ArbolAVLOrd<T>::erase(T &val)
     {
         return false;
     }
-    return eraseNode(val, raiz);
+    raiz = eraseNode(val, raiz);
+    return true;
 }
 
 template <class T>
@@ -210,11 +218,12 @@ NodoAVL<T> *nodeMinVal(NodoAVL<T> *nodo)
 }
 
 template <class T>
-bool ArbolAVLOrd<T>::*eraseNode(T &val, NodoAVL<T> *nodo)
+NodoAVL<T> *ArbolAVLOrd<T>::eraseNode(T &val, NodoAVL<T> *nodo)
 {
-    if (nodo == nullptr)
+    if (nodo == NULL)
     {
-        return false;
+        std::cout << "No existe el valor\n";
+        return nodo;
     }
     if (val < nodo->obtenerDato())
     {
@@ -226,13 +235,13 @@ bool ArbolAVLOrd<T>::*eraseNode(T &val, NodoAVL<T> *nodo)
     }
     else
     {
-        if (nodo->obtenerHijoIzq() == nullptr || nodo->obtenerHijoDer() == nullptr)
+        if (nodo->obtenerHijoIzq() == NULL || nodo->obtenerHijoDer() == NULL)
         {
             NodoAVL<T> *temp = nodo->obtenerHijoIzq() ? nodo->obtenerHijoIzq() : nodo->obtenerHijoDer();
-            if (temp == nullptr)
+            if (temp == NULL)
             {
                 temp = nodo;
-                nodo = nullptr;
+                nodo = NULL;
             }
             else
             {
@@ -247,40 +256,32 @@ bool ArbolAVLOrd<T>::*eraseNode(T &val, NodoAVL<T> *nodo)
             nodo->fijarHijoDer(eraseNode(temp->obtenerDato(), nodo->obtenerHijoDer()));
         }
     }
-    if (nodo == nullptr)
-    {
-        return false;
-    }
     int balance = getBalanceFactor(nodo);
     if (balance > 1)
     {
         if (getBalanceFactor(nodo->obtenerHijoIzq()) >= 0)
         {
-            rotacionDer(nodo);
-            return true;
+            return rotacionDer(nodo);
         }
         else
         {
             nodo->fijarHijoIzq(rotacionIzq(nodo->obtenerHijoIzq()));
-            rotacionDer(nodo);
-            return true;
+            return rotacionDer(nodo);
         }
     }
     if (balance < -1)
     {
         if (getBalanceFactor(nodo->obtenerHijoDer()) <= 0)
         {
-            rotacionIzq(nodo);
-            return true;
+            return rotacionIzq(nodo);
         }
         else
         {
             nodo->fijarHijoDer(rotacionDer(nodo->obtenerHijoDer()));
-            rotacionIzq(nodo);
-            return true;
+            return rotacionIzq(nodo);
         }
     }
-    return true;
+    return nodo;
 }
 
 template <class T>

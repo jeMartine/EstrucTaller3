@@ -1,7 +1,9 @@
 #ifndef NODOAVL_H
 #define NODOAVL_H
+
 template <class T>
-class NodoAVL{
+class NodoAVL
+{
 private:
     T dato;
     NodoAVL<T> *hijoIzq;
@@ -13,7 +15,7 @@ public:
     NodoAVL();
 
     T &obtenerDato();
-    void fijarDato( T &val);
+    void fijarDato(T &val);
     NodoAVL<T> *obtenerHijoIzq();
     NodoAVL<T> *obtenerHijoDer();
     NodoAVL<T> *obtenerPadre();
@@ -22,9 +24,7 @@ public:
     void fijarPadre(NodoAVL<T> *pad);
 
     bool eshoja();
-
 };
 #include "NodoAvl.hxx"
-
 
 #endif // NODOAVL_H
