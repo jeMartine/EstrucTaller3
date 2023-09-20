@@ -7,14 +7,14 @@
 #include <set>
 // TODO #1: incluir cabeceras implementaciones propias
 #include "ArbolBinarioOrd.h"
-// #include "---> implementacion_ArbolAVL.h <---"
+#include "ArbolAVLOrd.h"
 
 // -------------------------------------------------------------------------
 typedef std::list<std::string> TList;
 typedef std::set<std::string> TSet;
 // TODO #2: definir tipos de datos para arboles de cadenas de caracteres
 typedef ArbolBinarioOrd<std::string> TArbolBO;
-// typedef implementacion_ArbolAVL< std::string > TArbolAVL;
+typedef ArbolAVLOrd<std::string> TArbolAVL;
 
 // -------------------------------------------------------------------------
 template <class TTree>
@@ -32,7 +32,7 @@ int main(int argc, char *argv[])
 
   // TODO #3: declarar arboles
   TArbolBO arbolBO;
-  // TArbolAVL arbolAVL;
+  TArbolAVL arbolAVL;
   TSet arbolRN;
 
   // Llenar arbol binario ordenado y obtener tiempo de ejecucion
@@ -56,25 +56,25 @@ int main(int argc, char *argv[])
         << "\" para llenar el arbol binario ordenado."
         << std::endl;
 
+  std::cout << "\n\n\n";
+
   // Llenar arbol AVL y obtener tiempo de ejecucion
   std::clock_t start_arbolAVL = std::clock();
   // TODO #6: llenar arbol AVL desde archivo con funcion ReadTree
-  // bool llenar_arbolAVL = ReadTree( arbolAVL, argv[ 1 ] );
+  bool llenar_arbolAVL = ReadTree(arbolAVL, argv[1]);
   std::clock_t end_arbolAVL = std::clock();
-  double tiempo_arbolAVL =
-      (end_arbolAVL - start_arbolAVL) / double(CLOCKS_PER_SEC);
-  /* TODO #7: si se pudo llenar el arbol, imprimir el tiempo
-     if( llenar_arbolAVL )
-       std::cout
-         << "Tiempo de llenado Arbol AVL = "
-         << tiempo_arbolAVL << "seg."
-         << std::endl;
-     else
-       std::cout
-         << "Error al usar \"" << argv[ 1 ]
-         << "\" para llenar el arbol AVL."
-         << std::endl;
-  */
+  double tiempo_arbolAVL = (end_arbolAVL - start_arbolAVL) / double(CLOCKS_PER_SEC);
+  // TODO #7: si se pudo llenar el arbol, imprimir el tiempo
+  if (llenar_arbolAVL)
+    std::cout
+        << "Tiempo de llenado Arbol AVL = "
+        << tiempo_arbolAVL << "seg."
+        << std::endl;
+  else
+    std::cout
+        << "Error al usar \"" << argv[1]
+        << "\" para llenar el arbol AVL."
+        << std::endl;
 
   // Llenar arbol RN y obtener tiempo de ejecucion
   std::clock_t start_arbolRN = std::clock();

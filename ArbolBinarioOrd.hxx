@@ -26,6 +26,7 @@ template <class T>
 bool ArbolBinarioOrd<T>::insert(T &val)
 {
     raiz = insertRec(raiz, val);
+    return true;
 }
 
 template <class T>
@@ -104,19 +105,20 @@ template <class T>
 bool ArbolBinarioOrd<T>::erase(T &val)
 {
 
-    if(raiz == nullptr)
+    if (raiz == nullptr)
         return false;
-    std::cout<<"se quiere eliminar "<< val<<"\n";
+    std::cout << "se quiere eliminar " << val << "\n";
 
     raiz = eraseNode(val, raiz);
-    return true; //cuando se puede elimiarn
+    return true; // cuando se puede elimiarn
 }
 
 template <class T>
 NodoBin<T> *nodeMinVal(NodoBin<T> *nodo)
 {
-    while(nodo->obtenerHijoIzq() != nullptr){
-        nodo = nodo -> obtenerHijoIzq();
+    while (nodo->obtenerHijoIzq() != nullptr)
+    {
+        nodo = nodo->obtenerHijoIzq();
     }
     return nodo;
 }
@@ -124,20 +126,25 @@ NodoBin<T> *nodeMinVal(NodoBin<T> *nodo)
 template <class T>
 NodoBin<T> *ArbolBinarioOrd<T>::eraseNode(T &val, NodoBin<T> *nodo)
 {
-    //si el valor buscado no existe dentro del arbol
-    if (nodo == NULL){
-        std::cout<<"No existe el valor\n";
-        return nodo; 
+    // si el valor buscado no existe dentro del arbol
+    if (nodo == NULL)
+    {
+        std::cout << "No existe el valor\n";
+        return nodo;
     }
 
-    if (val < nodo->obtenerDato()){
+    if (val < nodo->obtenerDato())
+    {
         nodo->fijarHijoIzq(eraseNode(val, nodo->obtenerHijoIzq()));
-        //std::cout<<"Padre "<<nodo->obtenerDato()<<" Eliminado izquierdo: "<<val<<"\n";
-    }else if (val > nodo->obtenerDato()){
+        // std::cout<<"Padre "<<nodo->obtenerDato()<<" Eliminado izquierdo: "<<val<<"\n";
+    }
+    else if (val > nodo->obtenerDato())
+    {
         nodo->fijarHijoDer(eraseNode(val, nodo->obtenerHijoDer()));
-        //std::cout<<"Padre "<<nodo->obtenerDato()<<" Eliminado derecho: "<<val<<"\n";
-
-    }else{
+        // std::cout<<"Padre "<<nodo->obtenerDato()<<" Eliminado derecho: "<<val<<"\n";
+    }
+    else
+    {
         if (nodo->obtenerHijoIzq() == NULL)
         {
             NodoBin<T> *temp = nodo->obtenerHijoDer();
