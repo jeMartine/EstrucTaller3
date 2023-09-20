@@ -166,12 +166,23 @@ void ArbolBinarioOrd<T>::preOrden()
 }
 
 template <class T>
-void ArbolBinarioOrd<T>::inOrden()
+std::list<T>& ArbolBinarioOrd<T>::inOrden(std::list<T>& resultado)
 {
-    if (!this->esVacio)
+    if (!this->esVacio())
     {
-        (this->raiz())->inOrden();
+        (this->inOrden(this->raiz,resultado)); // paso el nodo raiz y la lista creada
     }
+    return resultado;
+}
+template<class T>
+void ArbolBinarioOrd<T>::inOrden(NodoBin<T>* nodo,std::list<T>& resultado) {
+    if (nodo != NULL) {             //mientras que el nodo no sea nulo
+      (this->inOrden(nodo->obtenerHijoIzq(),resultado));   // Recorrer el subárbol izquierdo
+
+       resultado.push_back(nodo->obtenerDato()); // Se Agrega el valor del nodo actual a la lista
+
+      (this->inOrden(nodo->obtenerHijoDer(),resultado));   // Recorrer el subárbol derecho
+      }
 }
 
 template <class T>

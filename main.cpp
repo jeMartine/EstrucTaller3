@@ -29,7 +29,7 @@ int main(int argc, char *argv[])
     std::cerr << "Uso: " << argv[0] << " archivo_entrada" << std::endl;
     return (-1);
   }
-   // holaaaaaaaaaaa cambio 2
+
   // TODO #3: declarar arboles
   TArbolBO arbolBO;
   // TArbolAVL arbolAVL;
@@ -96,7 +96,12 @@ int main(int argc, char *argv[])
   // Obtener recorrido en inorden del arbol binario ordenado
   TList inorden_arbolBO;
   // TODO #8: usar funcion del arbol para obtener recorrido en lista
-  // arbolBO.inOrdenLista( inorden_arbolBO );
+  arbolBO.inOrden(inorden_arbolBO);
+// Recorre e imprime la lista
+    std::cout << "Elementos de la lista:" << std::endl;
+    for (const std::string& elemento : inorden_arbolBO) {
+        std::cout << elemento << std::endl;
+    }
 
   // Obtener recorrido en inorden del arbol AVL
   TList inorden_arbolAVL;
@@ -145,8 +150,8 @@ bool ReadTree(TTree &tree, const std::string &filename)
     input >> code >> value;
     if (code == "add")
       tree.insert(value); // El arbol debe proveer el metodo "insert"
-    else if (code == "del")
-      tree.erase(value); // El arbol debe proveer el metodo "erase"
+    //else if (code == "del")
+      //tree.erase(value); // El arbol debe proveer el metodo "erase"
   }
 
   input.close();

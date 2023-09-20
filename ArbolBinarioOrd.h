@@ -10,6 +10,7 @@ class ArbolBinarioOrd
 private:
     NodoBin<T> *raiz;
 
+
 public:
     ArbolBinarioOrd();
     ~ArbolBinarioOrd();
@@ -22,7 +23,8 @@ public:
     bool erase(T &val);
     NodoBin<T> *eraseNode(T &val, NodoBin<T> *nodo);
     void preOrden();
-    void inOrden();
+    std::list<T>& inOrden(std::list<T>& resultado);
+    void inOrden(NodoBin<T>* nodo, std::list<T>& resultado);
     void posOrden();
     void nivelOrden();
     NodoBin<T> *insertRec(NodoBin<T> *nodo, T valor);
