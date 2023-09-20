@@ -24,7 +24,7 @@ bool ArbolAVLOrd<T>::esVacio()
 }
 
 template <class T>
-bool ArbolAVLOrd<T>::insert(T &val)
+void ArbolAVLOrd<T>::insert(T &val)
 {
     raiz = insertRec(raiz, nullptr, val);
 }
@@ -38,11 +38,14 @@ int ArbolAVLOrd<T>::getBalanceFactor(NodoAVL<T> *nodo)
 }
 
 template <class T>
-NodoAVL<T> *ArbolAVLOrd<T>::insertRec(NodoAVL<T> *nodo, NodoAVL<T> *padre, T valor)
+NodoAVL<T> ArbolAVLOrd<T>::*insertRec(NodoAVL<T> *nodo, NodoAVL<T> *padre, T valor)
 {
     if (nodo == nullptr)
     {
-        return new NodoAVL<T>(valor, padre);
+        NodoAVL<T> *newNodo = new NodoAVL<T>();
+        newNodo->fijarDato(valor);
+        newNodo->fijarPadre(padre);
+        return newNodo;
     }
 
     if (valor < nodo->obtenerDato())
@@ -131,9 +134,9 @@ T ArbolAVLOrd<T>::datoRaiz()
 template <class T>
 int ArbolAVLOrd<T>::tamahno()
 {
-     return tamano(this->raiz);
+    return tamano(this->raiz);
 }
-//recursivo 
+// recursivo
 template <class T>
 int ArbolAVLOrd<T>::tamano(NodoAVL<T> *nodo)
 {
@@ -143,7 +146,7 @@ int ArbolAVLOrd<T>::tamano(NodoAVL<T> *nodo)
     }
     int tamanoIzquierda = tamano(nodo->obtenerHijoIzq());
     int tamanoDerecha = tamano(nodo->obtenerHijoDer());
-    
+
     return 1 + tamanoIzquierda + tamanoDerecha;
 }
 
@@ -207,73 +210,77 @@ NodoAVL<T> *nodeMinVal(NodoAVL<T> *nodo)
 }
 
 template <class T>
-bool ArbolAVLOrd<T>::* eraseNode(T &val, NodoAVL<T> *nodo)
+bool ArbolAVLOrd<T>::*eraseNode(T &val, NodoAVL<T> *nodo)
 {
-    if (raiz == nullptr)
+    if (nodo == nullptr)
     {
         return false;
     }
     if (val < nodo->obtenerDato())
     {
-        raiz->fijarHijoIzq(eraseNode(val, nodo->obtenerHijoIzq()));
+        nodo->fijarHijoIzq(eraseNode(val, nodo->obtenerHijoIzq()));
     }
     else if (val > nodo->obtenerDato())
     {
-        raiz->fijarHijoDer(eraseNode(val, nodo->obtenerHijoDer()));
+        nodo->fijarHijoDer(eraseNode(val, nodo->obtenerHijoDer()));
     }
     else
     {
-        if (raiz->obtenerHijoIzq() == nullptr || raiz->obtenerHijoDer() == nullptr)
+        if (nodo->obtenerHijoIzq() == nullptr || nodo->obtenerHijoDer() == nullptr)
         {
-            NodoAVL<T> *temp = raiz->obtenerHijoIzq() ? raiz->obtenerHijoIzq() : raiz->obtenerHijoDer();
+            NodoAVL<T> *temp = nodo->obtenerHijoIzq() ? nodo->obtenerHijoIzq() : nodo->obtenerHijoDer();
             if (temp == nullptr)
             {
-                temp = raiz;
-                raiz = nullptr;
+                temp = nodo;
+                nodo = nullptr;
             }
             else
             {
-                *raiz = *temp;
+                *nodo = *temp;
             }
             free(temp);
         }
         else
         {
-            NodoAVL<T> *temp = nodeMinVal(raiz->obtenerHijoDer());
-            raiz->fijarDato(temp->obtenerDato());
-            raiz->fijarHijoDer(eraseNode(temp->obtenerDato(), raiz->obtenerHijoDer()));
+            NodoAVL<T> *temp = nodeMinVal(nodo->obtenerHijoDer());
+            nodo->fijarDato(temp->obtenerDato());
+            nodo->fijarHijoDer(eraseNode(temp->obtenerDato(), nodo->obtenerHijoDer()));
         }
     }
-    if (raiz == nullptr)
+    if (nodo == nullptr)
     {
-        return raiz;
+        return false;
     }
-    int balance = getBalanceFactor(raiz);
+    int balance = getBalanceFactor(nodo);
     if (balance > 1)
     {
-        if (getBalanceFactor(raiz->obtenerHijoIzq()) >= 0)
+        if (getBalanceFactor(nodo->obtenerHijoIzq()) >= 0)
         {
-            return rotacionDer(raiz);
+            rotacionDer(nodo);
+            return true;
         }
         else
         {
-            raiz->fijarHijoIzq(rotacionIzq(raiz->obtenerHijoIzq()));
-            return rotacionDer(raiz);
+            nodo->fijarHijoIzq(rotacionIzq(nodo->obtenerHijoIzq()));
+            rotacionDer(nodo);
+            return true;
         }
     }
     if (balance < -1)
     {
-        if (getBalanceFactor(raiz->obtenerHijoDer()) <= 0)
+        if (getBalanceFactor(nodo->obtenerHijoDer()) <= 0)
         {
-            return rotacionIzq(raiz);
+            rotacionIzq(nodo);
+            return true;
         }
         else
         {
-            raiz->fijarHijoDer(rotacionDer(raiz->obtenerHijoDer()));
-            return rotacionIzq(raiz);
+            nodo->fijarHijoDer(rotacionDer(nodo->obtenerHijoDer()));
+            rotacionIzq(nodo);
+            return true;
         }
     }
-    return raiz;
+    return true;
 }
 
 template <class T>
@@ -282,7 +289,7 @@ void ArbolAVLOrd<T>::preOrden()
     preOrden(this->raiz);
 }
 
-//recursivo
+// recursivo
 template <class T>
 void ArbolAVLOrd<T>::preOrden(NodoAVL<T> *nodo)
 {
@@ -296,9 +303,9 @@ void ArbolAVLOrd<T>::preOrden(NodoAVL<T> *nodo)
 template <class T>
 void ArbolAVLOrd<T>::inOrden()
 {
-   inOrden(this->raiz); 
+    inOrden(this->raiz);
 }
-//recursivo 
+// recursivo
 template <class T>
 void ArbolAVLOrd<T>::inOrden(NodoAVL<T> *nodo)
 {
@@ -336,11 +343,11 @@ void ArbolAVLOrd<T>::nivelOrden()
 {
     if (this->raiz == nullptr)
     {
-        return; 
+        return;
     }
 
     std::queue<NodoAVL<T> *> cola; // Cola para realizar el recorrido
-    cola.push(this->raiz); // Comenzamos por la raíz
+    cola.push(this->raiz);         // Comenzamos por la raíz
 
     while (!cola.empty())
     {
@@ -370,7 +377,7 @@ void ArbolAVLOrd<T>::inOrdenListaRaiz(NodoAVL<T> *nodo, std::list<T> &lista)
 {
     if (nodo != nullptr)
     {
-         inOrdenListaRaiz(nodo->obtenerHijoIzq(), lista);
+        inOrdenListaRaiz(nodo->obtenerHijoIzq(), lista);
         lista.push_back(nodo->obtenerDato());
         inOrdenListaRaiz(nodo->obtenerHijoDer(), lista);
     }

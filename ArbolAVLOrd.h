@@ -1,6 +1,6 @@
 #ifndef ARBOLAVLORD_H
 #define ARBOLAVLORD_H
-#include "NodoAVL.h"
+#include "NodoAvl.h"
 #include <list>
 
 template <class T>
@@ -9,7 +9,6 @@ class ArbolAVLOrd
 {
 private:
     NodoAVL<T> *raiz;
-
 
 public:
     ArbolAVLOrd();
@@ -20,13 +19,13 @@ public:
     int altura(NodoAVL<T> *nodo);
     int tamahno();
     int tamano(NodoAVL<T> *nodo);
-    bool insert(T &val); // modificar para que sea AVL
+    void insert(T &val); // modificar para que sea AVL
     bool erase(T &val);  // modificar para que sea AVL
     NodoAVL<T> rotacionIzq(NodoAVL<T> *nodo);
     NodoAVL<T> rotacionDer(NodoAVL<T> *nodo);
     int getBalanceFactor(NodoAVL<T> *nodo);
     NodoAVL<T> *insertRec(NodoAVL<T> *nodo, NodoAVL<T> *padre, T valor);
-    NodoAVL<T> *eraseNode(T &val, NodoAVL<T> *nodo);
+    bool *eraseNode(T &val, NodoAVL<T> *nodo);
     void preOrden();
     void preOrden(NodoAVL<T> *nodo);
     void inOrden();
@@ -34,10 +33,9 @@ public:
     void posOrden();
     void posOrden(NodoAVL<T> *nodo);
     void nivelOrden();
-    
+
     void inOrdenLista(std::list<T> &lista);
     void inOrdenListaRaiz(NodoAVL<T> *nodo, std::list<T> &lista);
-
 };
 
 #include "ArbolAVLOrd.hxx"
