@@ -29,7 +29,7 @@ int main(int argc, char *argv[])
     std::cerr << "Uso: " << argv[0] << " archivo_entrada" << std::endl;
     return (-1);
   }
-
+   // holaaaaaaaaaaa cambio 2
   // TODO #3: declarar arboles
   TArbolBO arbolBO;
   // TArbolAVL arbolAVL;
