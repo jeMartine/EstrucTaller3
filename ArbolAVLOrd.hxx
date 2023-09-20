@@ -327,3 +327,21 @@ template <class T>
 void ArbolAVLOrd<T>::nivelOrden()
 {
 }
+
+template <class T>
+void ArbolAVLOrd<T>::inOrdenLista(std::list<T> &lista)
+{
+    inOrdenListaRaiz(raiz, lista);
+}
+
+// esta es la forma recursiva
+template <class T>
+void ArbolAVLOrd<T>::inOrdenListaRaiz(NodoAVL<T> *nodo, std::list<T> &lista)
+{
+    if (nodo != nullptr)
+    {
+        inOrdenListaRaiz(nodo->obtenerHijoIzq(), lista);
+        lista.push_back(nodo->obtenerDato());
+        inOrdenListaRaiz(nodo->obtenerHijoDer(), lista);
+    }
+}
