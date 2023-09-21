@@ -35,7 +35,7 @@ public:
     void posOrden(NodoAVL<T> *nodo);
     void nivelOrden();
 
-    void inOrdenLista(std::list<T> &lista);
+   std::list<T>& inOrdenLista(std::list<T> &lista);
     void inOrdenListaRaiz(NodoAVL<T> *nodo, std::list<T> &lista);
 };
 
