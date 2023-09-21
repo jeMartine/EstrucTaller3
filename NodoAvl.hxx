@@ -1,20 +1,34 @@
 #include "NodoAvl.h"
-
 template <class T>
-NodoAVL<T>::NodoAVL(T &val)
+NodoAVL<T>::NodoAVL(T &valor)
 {
-    dato = val;
+    dato = valor;
     hijoIzq = NULL;
     hijoDer = NULL;
-    padre = NULL;
+    par = NULL;
+    height = 1;
 }
 
 template <class T>
 NodoAVL<T>::NodoAVL()
 {
+    dato = NULL;
     hijoIzq = NULL;
     hijoDer = NULL;
-    padre = NULL;
+    par = NULL;
+    height = 1;
+}
+
+template <class T>
+NodoAVL<T> *NodoAVL<T>::obtenerPar()
+{
+    return par;
+}
+
+template <class T>
+void NodoAVL<T>::fijarPar(NodoAVL<T> *padre)
+{
+    par = padre;
 }
 
 template <class T>
@@ -36,9 +50,9 @@ NodoAVL<T> *NodoAVL<T>::obtenerHijoDer()
 }
 
 template <class T>
-NodoAVL<T> *NodoAVL<T>::obtenerPadre()
+int NodoAVL<T>::obtenerHeight()
 {
-    return padre;
+    return height;
 }
 
 template <class T>
@@ -60,9 +74,9 @@ void NodoAVL<T>::fijarHijoDer(NodoAVL<T> *der)
 }
 
 template <class T>
-void NodoAVL<T>::fijarPadre(NodoAVL<T> *pad)
+void NodoAVL<T>::fijarHeight(int height)
 {
-    padre = pad;
+    this->height = height;
 }
 
 template <class T>
@@ -71,5 +85,5 @@ bool NodoAVL<T>::eshoja()
     if (hijoDer == NULL && hijoIzq == NULL)
         return true;
     else
-        return false;
+        return false;
 }
