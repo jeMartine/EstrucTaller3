@@ -98,7 +98,7 @@ int main(int argc, char *argv[])
   // TODO #8: usar funcion del arbol para obtener recorrido en lista
   arbolBO.inOrden(inorden_arbolBO);
 // Recorre e imprime la lista
-    std::cout << "Elementos de la lista:" << std::endl;
+    std::cout << "Elementos de la lista arbol Binario:" << std::endl;
     for (const std::string& elemento : inorden_arbolBO) {
         std::cout << elemento << std::endl;
     }
@@ -107,7 +107,7 @@ int main(int argc, char *argv[])
   TList inorden_arbolAVL;
   // TODO #9: usar funcion del arbol AVL para obtener recorrido en lista
   arbolAVL.inOrdenLista( inorden_arbolAVL );
-  std::cout << "Elementos de la lista:" << std::endl;
+  std::cout << "Elementos de la lista arbol avl:" << std::endl;
     for (const std::string& elemento : inorden_arbolAVL) {
         std::cout << elemento << std::endl;
     }
