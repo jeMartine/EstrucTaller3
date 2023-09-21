@@ -329,9 +329,16 @@ void ArbolAVLOrd<T>::nivelOrden()
 }
 
 template <class T>
-void ArbolAVLOrd<T>::inOrdenLista(std::list<T> &lista)
+std::list<T>& ArbolAVLOrd<T>::inOrdenLista(std::list<T> &lista)
 {
-    inOrdenListaRaiz(raiz, lista);
+
+
+    
+    if (!this->esVacio())
+    {
+        (this->inOrdenListaRaiz(this-> raiz, lista)); 
+    }
+    return lista;
 }
 
 // esta es la forma recursiva
