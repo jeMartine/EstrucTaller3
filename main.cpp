@@ -42,7 +42,7 @@ int main(int argc, char *argv[])
   bool llenar_arbolBO = ReadTree(arbolBO, argv[1]);
   std::clock_t end_arbolBO = std::clock();
 
-  std::cout << "Altura Binario " << arbolBO.altura() << "\n";
+  std::cout << "Altura " << arbolBO.altura() << "\n";
   double tiempo_arbolBO = (end_arbolBO - start_arbolBO) / double(CLOCKS_PER_SEC);
   // TODO #5: si se pudo llenar el arbol, imprimir el tiempo
   if (llenar_arbolBO)
@@ -56,15 +56,13 @@ int main(int argc, char *argv[])
         << "\" para llenar el arbol binario ordenado."
         << std::endl;
 
-  std::cout << "\n\n\n\n";
+  std::cout << "\n\n\n";
 
   // Llenar arbol AVL y obtener tiempo de ejecucion
   std::clock_t start_arbolAVL = std::clock();
   // TODO #6: llenar arbol AVL desde archivo con funcion ReadTree
   bool llenar_arbolAVL = ReadTree(arbolAVL, argv[1]);
   std::clock_t end_arbolAVL = std::clock();
-
-  std::cout << "Altura AVL " << arbolAVL.altura() << "\n";
   double tiempo_arbolAVL = (end_arbolAVL - start_arbolAVL) / double(CLOCKS_PER_SEC);
   // TODO #7: si se pudo llenar el arbol, imprimir el tiempo
   if (llenar_arbolAVL)
@@ -98,13 +96,39 @@ int main(int argc, char *argv[])
   // Obtener recorrido en inorden del arbol binario ordenado
   TList inorden_arbolBO;
   // TODO #8: usar funcion del arbol para obtener recorrido en lista
-  // arbolBO.inOrdenLista( inorden_arbolBO );
+  arbolBO.inOrden(inorden_arbolBO);
+<<<<<<< Updated upstream
+// Recorre e imprime la lista
+    std::cout << "Elementos de la lista arbol Binario:" << std::endl;
+    for (const std::string& elemento : inorden_arbolBO) {
+        std::cout << elemento << std::endl;
+    }
+=======
+  // Recorre e imprime la lista
+  std::cout << "Elementos de la lista arbol Binario:" << std::endl;
+  for (const std::string &elemento : inorden_arbolBO)
+  {
+    std::cout << elemento << std::endl;
+  }
+>>>>>>> Stashed changes
 
   // Obtener recorrido en inorden del arbol AVL
   TList inorden_arbolAVL;
   // TODO #9: usar funcion del arbol AVL para obtener recorrido en lista
-
+<<<<<<< Updated upstream
+  arbolAVL.inOrdenLista( inorden_arbolAVL );
+  std::cout << "Elementos de la lista arbol avl:" << std::endl;
+    for (const std::string& elemento : inorden_arbolAVL) {
+        std::cout << elemento << std::endl;
+    }
+=======
   arbolAVL.inOrdenLista(inorden_arbolAVL);
+  std::cout << "Elementos de la lista arbol avl:" << std::endl;
+  for (const std::string &elemento : inorden_arbolAVL)
+  {
+    std::cout << elemento << std::endl;
+  }
+>>>>>>> Stashed changes
 
   if (inorden_arbolBO.size() != inorden_arbolAVL.size() ||
       inorden_arbolBO.size() != arbolRN.size() ||
@@ -155,5 +179,6 @@ bool ReadTree(TTree &tree, const std::string &filename)
   input.close();
   return (true);
 }
+// prueba
 
 // eof - taller_3_ordenamiento_busqueda.cxx
